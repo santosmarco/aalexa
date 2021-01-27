@@ -4,7 +4,7 @@ import {
   FallbackIntentT,
   HelpIntentT,
   StopIntentT,
-} from "../../types/intents/standard";
+} from "../../types";
 
 /* AMAZON DEFAULTS */
 export const CANCEL_INTENT: CancelIntentT = "AMAZON.CancelIntent";

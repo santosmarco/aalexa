@@ -4,7 +4,7 @@ import {
   IntentRequestT,
   LaunchRequestT,
   SessionEndedRequestT,
-} from "../types/requests/requestTypes";
+} from "../types";
 
 /* AMAZON DEFAULTS */
 export const LAUNCH_REQUEST: LaunchRequestT = "LaunchRequest";

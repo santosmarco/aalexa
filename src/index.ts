@@ -1,3 +1,5 @@
-import Skill from "./classes/Skill";
+import { AudioPlayerSkill, PlaybackControllerSkill, Skill } from "./classes";
+
+export { AudioPlayerSkill, PlaybackControllerSkill };
 
 export default Skill;

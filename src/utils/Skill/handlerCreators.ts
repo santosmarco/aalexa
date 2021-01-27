@@ -1,19 +1,10 @@
-import {
-  ErrorHandler,
-  HandlerInput,
-  RequestHandler,
-  ResponseBuilder,
-} from "ask-sdk-core";
+import { ErrorHandler, HandlerInput, RequestHandler } from "ask-sdk-core";
 import {
   SkillErrorHandleCallbackT,
   SkillRequestHandleCallbackT,
-} from "../../types/classes/Skill";
+} from "../../types";
 import { checkIntentName } from "../validators/intentValidators";
-
-const buildRequest = (handlerInput: HandlerInput): HandlerInput => handlerInput;
-
-const buildResponse = (handlerInput: HandlerInput): ResponseBuilder =>
-  handlerInput.responseBuilder;
+import { buildError, buildRequest, buildResponse } from "./reqResBuilders";
 
 export const createRequestHandler = (
   canHandleVerifier: (handleInput: HandlerInput, error?: Error) => boolean,
@@ -23,15 +14,14 @@ export const createRequestHandler = (
   handle: (handlerInput) => {
     const req = buildRequest(handlerInput);
     const res = buildResponse(handlerInput);
-    handleCallback(req, res);
-    return res.getResponse();
+    return handleCallback(req, res);
   },
 });
 
 export const createEmptyRequestHandler = () =>
   createRequestHandler(
     () => true,
-    () => {}
+    (_, res) => res.getResponse()
   );
 
 export const createCustomIntentHandler = (
@@ -44,14 +34,14 @@ export const createCustomIntentHandler = (
   );
 
 export const createErrorHandler = (
-  errorName: string | null,
+  errorName: string,
   handleCallback: SkillErrorHandleCallbackT
 ): ErrorHandler => ({
   canHandle: (_, err) => (errorName ? err!.name === errorName : true),
-  handle: (handlerInput, err) => {
+  handle: (handlerInput, error) => {
     const req = buildRequest(handlerInput);
     const res = buildResponse(handlerInput);
-    handleCallback(req, res, err);
-    return res.getResponse();
+    const err = buildError(error);
+    return handleCallback(req, res, err);
   },
 });
