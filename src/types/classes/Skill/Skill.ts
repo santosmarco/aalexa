@@ -10,6 +10,7 @@ import { BuildResponseT } from "./reqResBuilders";
 import {
   SkillInterceptorCallbackT,
   SkillRequestHandleCallbackT,
+  SkillRequestHandleOptionsT,
 } from "./utilityCreators";
 
 export type SkillDefaultHandlerT = RequestHandler;
@@ -40,7 +41,11 @@ export type SkillDefaultHandlersT = {
 
 interface ISkill {
   onLaunch: (callback: SkillRequestHandleCallbackT) => this;
-  on: (intentName: string, callback: SkillRequestHandleCallbackT) => this;
+  on: (
+    intentName: string,
+    callback: SkillRequestHandleCallbackT,
+    options?: SkillRequestHandleOptionsT
+  ) => this;
   onHelp: (callback: SkillRequestHandleCallbackT) => this;
   onCancel: (callback: SkillRequestHandleCallbackT) => this;
   onStop: (callback: SkillRequestHandleCallbackT) => this;

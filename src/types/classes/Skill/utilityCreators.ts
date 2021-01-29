@@ -1,3 +1,4 @@
+import { HandlerInput } from "ask-sdk-core";
 import { Response } from "ask-sdk-model";
 import { BuildErrorT, BuildRequestT, BuildResponseT } from "./reqResBuilders";
 
@@ -11,6 +12,10 @@ export type SkillErrorHandleCallbackT = (
   res: ReturnType<BuildResponseT>,
   err: ReturnType<BuildErrorT>
 ) => Response | Promise<Response>;
+
+export type SkillRequestHandleOptionsT = {
+  canHandle?: (handlerInput: HandlerInput) => boolean;
+};
 
 export type SkillInterceptorCallbackT<
   T extends ReturnType<BuildResponseT> | Response

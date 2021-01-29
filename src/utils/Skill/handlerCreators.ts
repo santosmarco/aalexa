@@ -2,6 +2,7 @@ import { ErrorHandler, HandlerInput, RequestHandler } from "ask-sdk-core";
 import {
   SkillErrorHandleCallbackT,
   SkillRequestHandleCallbackT,
+  SkillRequestHandleOptionsT,
 } from "../../types";
 import { checkIntentName } from "../validators/intentValidators";
 import { buildError, buildRequest, buildResponse } from "./reqResBuilders";
@@ -26,10 +27,17 @@ export const createEmptyRequestHandler = () =>
 
 export const createCustomIntentHandler = (
   intentName: string,
-  handleCallback: SkillRequestHandleCallbackT
+  handleCallback: SkillRequestHandleCallbackT,
+  handleOptions?: SkillRequestHandleOptionsT
 ) =>
   createRequestHandler(
-    (handlerInput) => checkIntentName(handlerInput, intentName),
+    (handlerInput) =>
+      checkIntentName(handlerInput, intentName) &&
+      (handleOptions
+        ? handleOptions.canHandle
+          ? handleOptions.canHandle(handlerInput)
+          : true
+        : true),
     handleCallback
   );
 

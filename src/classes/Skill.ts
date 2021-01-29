@@ -15,6 +15,7 @@ import {
   SkillErrorHandlerT,
   SkillInterceptorCallbackT,
   SkillRequestHandleCallbackT,
+  SkillRequestHandleOptionsT,
   SkillRequestInterceptorT,
   SkillResponseInterceptorT,
 } from "../types";
@@ -101,7 +102,11 @@ class Skill implements ISkill {
    * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  on = (intentName: string, callback: SkillRequestHandleCallbackT) => {
+  on = (
+    intentName: string,
+    callback: SkillRequestHandleCallbackT,
+    options?: SkillRequestHandleOptionsT
+  ) => {
     intentName = intentName.trim();
     switch (intentName) {
       case HELP_INTENT:
@@ -117,7 +122,7 @@ class Skill implements ISkill {
       default:
         return this.addCustomHandler({
           intentName,
-          callback: createCustomIntentHandler(intentName, callback),
+          callback: createCustomIntentHandler(intentName, callback, options),
         });
     }
   };
