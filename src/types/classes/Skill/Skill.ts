@@ -39,18 +39,15 @@ export type SkillDefaultHandlersT = {
 };
 
 interface ISkill {
-  onLaunch: (handleCallback: SkillRequestHandleCallbackT) => this;
-  on: (intentName: string, handleCallback: SkillRequestHandleCallbackT) => this;
-  onHelp: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onCancel: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onStop: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onCancelAndStop: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onFallback: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onSessionEnded: (handleCallback: SkillRequestHandleCallbackT) => this;
-  onError: (
-    errorName: string,
-    handleCallback: SkillRequestHandleCallbackT
-  ) => this;
+  onLaunch: (callback: SkillRequestHandleCallbackT) => this;
+  on: (intentName: string, callback: SkillRequestHandleCallbackT) => this;
+  onHelp: (callback: SkillRequestHandleCallbackT) => this;
+  onCancel: (callback: SkillRequestHandleCallbackT) => this;
+  onStop: (callback: SkillRequestHandleCallbackT) => this;
+  onCancelAndStop: (callback: SkillRequestHandleCallbackT) => this;
+  onFallback: (callback: SkillRequestHandleCallbackT) => this;
+  onSessionEnded: (callback: SkillRequestHandleCallbackT) => this;
+  onError: (errorName: string, callback: SkillRequestHandleCallbackT) => this;
   registerRequestInterceptor: (
     callback: SkillInterceptorCallbackT<ReturnType<BuildResponseT>>
   ) => this;

@@ -86,118 +86,118 @@ class Skill implements ISkill {
 
   /**
    * @description Register a handler for requests of type LaunchRequest. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/request-types-reference.html#launchrequest)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onLaunch = (handleCallback: SkillRequestHandleCallbackT) =>
+  onLaunch = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "launchRequest",
-      createRequestHandler(isLaunchRequest, handleCallback)
+      createRequestHandler(isLaunchRequest, callback)
     );
 
   /**
    * @description Register a handler for requests that match the given intent name.
    * @param {string} intentName The custom intent name, as defined in the Amazon Developer Console, that should trigger the handler function.
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  on = (intentName: string, handleCallback: SkillRequestHandleCallbackT) => {
+  on = (intentName: string, callback: SkillRequestHandleCallbackT) => {
     intentName = intentName.trim();
     switch (intentName) {
       case HELP_INTENT:
-        return this.onHelp(handleCallback);
+        return this.onHelp(callback);
       case CANCEL_INTENT:
-        return this.onCancel(handleCallback);
+        return this.onCancel(callback);
       case STOP_INTENT:
-        return this.onStop(handleCallback);
+        return this.onStop(callback);
       case CANCEL_AND_STOP_INTENT:
-        return this.onCancelAndStop(handleCallback);
+        return this.onCancelAndStop(callback);
       case FALLBACK_INTENT:
-        return this.onFallback(handleCallback);
+        return this.onFallback(callback);
       default:
         return this.addCustomHandler({
           intentName,
-          callback: createCustomIntentHandler(intentName, handleCallback),
+          callback: createCustomIntentHandler(intentName, callback),
         });
     }
   };
 
   /**
    * @description Register a handler for requests that match the standard built-in intent AMAZON.HelpIntent. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onHelp = (handleCallback: SkillRequestHandleCallbackT) =>
+  onHelp = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "helpIntent",
-      createRequestHandler(isHelpIntent, handleCallback)
+      createRequestHandler(isHelpIntent, callback)
     );
 
   /**
    * @description Register a handler for requests that match the standard built-in intent AMAZON.CancelIntent. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onCancel = (handleCallback: SkillRequestHandleCallbackT) =>
+  onCancel = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "cancelIntent",
-      createRequestHandler(isCancelIntent, handleCallback)
+      createRequestHandler(isCancelIntent, callback)
     );
 
   /**
    * @description Register a handler for requests that match the standard built-in intent AMAZON.StopIntent. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onStop = (handleCallback: SkillRequestHandleCallbackT) =>
+  onStop = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "stopIntent",
-      createRequestHandler(isStopIntent, handleCallback)
+      createRequestHandler(isStopIntent, callback)
     );
 
   /**
    * @description Register a handler for requests that match both the standard built-in intents AMAZON.CancelIntent and AMAZON.StopIntent. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onCancelAndStop = (handleCallback: SkillRequestHandleCallbackT) =>
+  onCancelAndStop = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "cancelAndStopIntent",
-      createRequestHandler(isCancelAndStopIntent, handleCallback)
+      createRequestHandler(isCancelAndStopIntent, callback)
     );
 
   /**
    * @description Register a handler for requests that match the standard built-in intent AMAZON.FallbackIntent. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onFallback = (handleCallback: SkillRequestHandleCallbackT) =>
+  onFallback = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "fallbackIntent",
-      createRequestHandler(isFallbackIntent, handleCallback)
+      createRequestHandler(isFallbackIntent, callback)
     );
 
   /**
    * @description Register a handler for requests of type SessionEndedRequest. _(see: https://developer.amazon.com/en-US/docs/alexa/custom-skills/request-types-reference.html#sessionendedrequest)_
-   * @param {SkillRequestHandleCallbackT} handleCallback Function to be executed upon request handling.
+   * @param {SkillRequestHandleCallbackT} callback Function to be executed upon request handling.
    * @memberof Skill
    */
-  onSessionEnded = (handleCallback: SkillRequestHandleCallbackT) =>
+  onSessionEnded = (callback: SkillRequestHandleCallbackT) =>
     this.overwriteDefaultHandler(
       "sessionEndedRequest",
-      createRequestHandler(isSessionEndedRequest, handleCallback)
+      createRequestHandler(isSessionEndedRequest, callback)
     );
 
   /**
    * @description Register a handler for responding to a known, named error.
    * @param {string} errorName The name of the error that should trigger the handler function.
-   * @param {SkillErrorHandleCallbackT} handleCallback Function to be executed upon error handling.
+   * @param {SkillErrorHandleCallbackT} callback Function to be executed upon error handling.
    * @memberof Skill
    */
-  onError = (errorName: string, handleCallback: SkillErrorHandleCallbackT) =>
+  onError = (errorName: string, callback: SkillErrorHandleCallbackT) =>
     this.addErrorHandler({
       errorName: errorName.trim(),
-      callback: createErrorHandler(errorName, handleCallback),
+      callback: createErrorHandler(errorName, callback),
     });
 
   /**
