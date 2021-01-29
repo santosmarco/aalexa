@@ -1,9 +1,16 @@
 import {
   ErrorHandler,
+  LambdaHandler,
   RequestHandler,
   RequestInterceptor,
   ResponseInterceptor,
 } from "ask-sdk-core";
+import { Response } from "ask-sdk-model";
+import { BuildResponseT } from "./reqResBuilders";
+import {
+  SkillInterceptorCallbackT,
+  SkillRequestHandleCallbackT,
+} from "./utilityCreators";
 
 export type SkillDefaultHandlerT = RequestHandler;
 
@@ -30,3 +37,27 @@ export type SkillDefaultHandlersT = {
   fallbackIntent: SkillDefaultHandlerT;
   sessionEndedRequest: SkillDefaultHandlerT;
 };
+
+interface ISkill {
+  onLaunch: (handleCallback: SkillRequestHandleCallbackT) => this;
+  on: (intentName: string, handleCallback: SkillRequestHandleCallbackT) => this;
+  onHelp: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onCancel: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onStop: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onCancelAndStop: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onFallback: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onSessionEnded: (handleCallback: SkillRequestHandleCallbackT) => this;
+  onError: (
+    errorName: string,
+    handleCallback: SkillRequestHandleCallbackT
+  ) => this;
+  registerRequestInterceptor: (
+    callback: SkillInterceptorCallbackT<ReturnType<BuildResponseT>>
+  ) => this;
+  registerResponseInterceptor: (
+    callback: SkillInterceptorCallbackT<ReturnType<BuildResponseT> | Response>
+  ) => this;
+  build: () => LambdaHandler;
+}
+
+export default ISkill;
